@@ -41,7 +41,7 @@ def print_conf(filename):
         result["Include Extension"] = True
 
     for key in result:
-        print(key+" : "+result[key])
+        print(key+" : "+str(result[key]))
 
 def main():
 
