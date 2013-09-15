@@ -8,11 +8,15 @@
 # |_| |_| |_|\__,_|_| \_/\_/ \__,_|_|  \___(_)_|\__,_|
 
 
-import sys,os,argparse
+import sys
+import os
+import argparse
+
 
 def find_package_info(bozok):
     bozok = bozok.read()
     return int(bozok.find("I\0N\0F\0"))
+
 
 def print_conf(filename):
 
@@ -35,7 +39,7 @@ def print_conf(filename):
     result["option4"] = parsed[9]
     result["option5"] = parsed[10]
     result["port"] = parsed[11]
-    result["ip address"] = parsed[12].replace("*", "")
+    result["ip address"] = parsed[12]
     result["option6"] = parsed[13]
     if os.path.getsize(filename) > 100000:
         result["Include Extension"] = True
@@ -43,14 +47,17 @@ def print_conf(filename):
     for key in result:
         print(key+" : "+str(result[key]))
 
+    bozok.close()
+
+
 def main():
 
 
     parser = argparse.ArgumentParser(description = "Malware.lu Bozok config extractor")
     parser.add_argument('-d', '--decode', action='store_true',
-        help="Print the configuration")
+                        help="Print the configuration")
     parser.add_argument( dest="filename", 
-        help="Bozok binary file")
+                        help="Bozok binary file")
     try:
         r = parser.parse_args()
 
